@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 12:17:08 by dpalmer           #+#    #+#             */
-/*   Updated: 2022/11/07 08:46:25 by dpalmer          ###   ########.fr       */
+/*   Updated: 2022/11/08 19:03:51 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ char	*ft_strchr(const char *s, int c)
 {
 	char	*chr;
 
+	if (!s)
+		return (NULL);
 	chr = (char *)s;
 	c %= 128;
 	while (*chr != c)
@@ -40,56 +42,65 @@ char	*ft_strchr(const char *s, int c)
 	return (chr);
 }
 
-char	*ft_parse_line(char *str)
-{
-	int		i;
-	char	*result;
-
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != '\n')
-		i++;
-	result = (char *)malloc(sizeof(char) * (i + 2));
-	if (!result)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != '\n')
-	{
-		result[i] = str[i];
-		i++;
-	}
-	if (str[i] == '\n')
-	{
-		result[i] = str[i];
-		i++;
-	}
-	result[i] = '\0';
-	return (result);
-}
-
-char	*ft_prep_parse(char *str)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
 	size_t	j;
-	char	*result;
+	size_t	s_len;
+	size_t	d_len;
+
+	j = 0;
+	if ((!dst ||!src) && dstsize == 0)
+		return (0);
+	d_len = ft_strlen(dst);
+	s_len = ft_strlen(src);
+	i = d_len;
+	if (dstsize == 0 || dstsize <= d_len)
+		return (s_len + dstsize);
+	while (src[j] && (d_len + j) < dstsize)
+		dst[i++] = src[j++];
+	if ((d_len + j) == dstsize && d_len < dstsize)
+		dst[i - 1] = '\0';
+	else
+		dst[i] = '\0';
+	return (s_len + d_len);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	s_len;
 
 	i = 0;
-	while (str[i] && str[i] != '\n')
-		i++;
-	if (!str[i])
+	if (!src && dstsize == 0)
+		return (0);
+	s_len = ft_strlen(src);
+	while (src[i] != '\0' && i < dstsize)
 	{
-		free(str);
-		return (NULL);
+		dst[i] = src[i];
+		i++;
 	}
-	result = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
-	if (!result)
+	if (dstsize <= s_len)
+		dst[dstsize - 1] = '\0';
+	else
+		dst[i] = '\0';
+	return (s_len);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*str;
+	size_t	s_len;
+	size_t	t_len;
+
+	if (!s1 || !s2)
 		return (NULL);
-	i++;
-	j = 0;
-	while (str[i])
-		result[j++] = str[i++];
-	result[j] = '\0';
-	free(str);
-	return (result);
+	s_len = ft_strlen(s1);
+	t_len = s_len + ft_strlen(s2) + 1;
+	str = (char *)malloc(sizeof(char) * t_len);
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, s1, s_len + 1);
+	ft_strlcat(str, s2, t_len);
+	return (str);
 }
