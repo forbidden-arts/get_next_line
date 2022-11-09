@@ -6,14 +6,14 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 11:01:28 by dpalmer           #+#    #+#             */
-/*   Updated: 2022/11/08 18:59:44 by dpalmer          ###   ########.fr       */
+/*   Updated: 2022/11/09 08:04:01 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 static char	*ft_gnl_join(char *remain, char *buff);
-static char	*ft_load_parse_buff(int fd, char *str);
+static char	*ft_load_parse_buff(int fd, char *str, int read_bytes);
 static char	*ft_parse_line(char *str);
 static char	*ft_prep_parse(char *str);
 
@@ -33,7 +33,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	parse_buff[fd] = ft_load_parse_buff(fd, parse_buff[fd]);
+	parse_buff[fd] = ft_load_parse_buff(fd, parse_buff[fd], 1);
 	if (!parse_buff[fd])
 		return (NULL);
 	line = ft_parse_line(parse_buff[fd]);
@@ -48,13 +48,24 @@ char	*get_next_line(int fd)
 static char	*ft_gnl_join(char *remain, char *buff)
 {
 	char	*str;
+	size_t	s_len;
+	size_t	t_len;
 
 	if (!remain)
 	{
-		remain = (char *)malloc(sizeof(char) * 1);
+		remain = (char *)malloc(sizeof(char));
 		remain[0] = '\0';
 	}
-	str = ft_strjoin(remain, buff);
+	if (!remain || !buff)
+		return (NULL);
+	s_len = ft_strlen(remain);
+	t_len = s_len + ft_strlen(buff) + 1;
+	str = (char *)malloc(sizeof(char) * t_len);
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, remain, s_len + 1);
+	ft_strlcat(str, buff, t_len);
+	free (remain);
 	return (str);
 }
 
@@ -63,16 +74,14 @@ static char	*ft_gnl_join(char *remain, char *buff)
 ** an earlier newline. Continues to loop, reading BUFFER_SIZE bytes, until
 ** newline or EOF is found. */
 
-static char	*ft_load_parse_buff(int fd, char *str)
+static char	*ft_load_parse_buff(int fd, char *str, int read_bytes)
 {
 	char	*buff;
-	int		read_bytes;
 
 	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buff)
 		return (NULL);
-	read_bytes = 1;
-	while (!ft_strchr(str, '\n') && read_bytes != 0)
+	while (!ft_strchr(str, '\n') && read_bytes != 0 &&)
 	{
 		read_bytes = read(fd, buff, BUFFER_SIZE);
 		if (read_bytes == -1)
@@ -137,29 +146,29 @@ static char	*ft_prep_parse(char *str)
 	return (result);
 }
 
-int	main(void)
-{
-	char	*line;
-	int		i;
-	int		fd1;
-	int		fd2;
-	int		fd3;
-	fd1 = open("tests/test1.txt", O_RDONLY);
-	fd2 = open("tests/test2.txt", O_RDONLY);
-	fd3 = open("tests/test3.txt", O_RDONLY);
-	i = 1;
-	while (i < 8)
-	{
-		line = get_next_line(fd1);
-		printf("line [%02d]:\n%s\n", i, line);
-		line = get_next_line(fd2);
-		printf("line [%02d]:\n%s\n", i, line);
-		line = get_next_line(fd3);
-		printf("line [%02d]:\n%s\n", i, line);
-		i++;
-	}
-	close(fd1);
-	close(fd2);
-	close(fd3);
-	return (0);
-}
+// int	main(void)
+// {
+// 	char	*line;
+// 	int		i;
+// 	int		fd1;
+// 	int		fd2;
+// 	int		fd3;
+// 	fd1 = open("tests/test1.txt", O_RDONLY);
+// 	fd2 = open("tests/test2.txt", O_RDONLY);
+// 	fd3 = open("tests/test3.txt", O_RDONLY);
+// 	i = 1;
+// 	while (i < 8)
+// 	{
+// 		line = get_next_line(fd1);
+// 		printf("line [%02d]:\n%s\n", i, line);
+// 		line = get_next_line(fd2);
+// 		printf("line [%02d]:\n%s\n", i, line);
+// 		line = get_next_line(fd3);
+// 		printf("line [%02d]:\n%s\n", i, line);
+// 		i++;
+// 	}
+// 	close(fd1);
+// 	close(fd2);
+// 	close(fd3);
+// 	return (0);
+// }

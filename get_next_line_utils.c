@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 12:17:08 by dpalmer           #+#    #+#             */
-/*   Updated: 2022/11/08 19:03:51 by dpalmer          ###   ########.fr       */
+/*   Updated: 2022/11/09 07:45:45 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,20 +87,20 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (s_len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*str;
-	size_t	s_len;
-	size_t	t_len;
+// char	*ft_strjoin(char const *s1, char const *s2)
+// {
+// 	char	*str;
+// 	size_t	s_len;
+// 	size_t	t_len;
 
-	if (!s1 || !s2)
-		return (NULL);
-	s_len = ft_strlen(s1);
-	t_len = s_len + ft_strlen(s2) + 1;
-	str = (char *)malloc(sizeof(char) * t_len);
-	if (!str)
-		return (NULL);
-	ft_strlcpy(str, s1, s_len + 1);
-	ft_strlcat(str, s2, t_len);
-	return (str);
-}
+// 	if (!s1 || !s2)
+// 		return (NULL);
+// 	s_len = ft_strlen(s1);
+// 	t_len = s_len + ft_strlen(s2) + 1;
+// 	str = (char *)malloc(sizeof(char) * t_len);
+// 	if (!str)
+// 		return (NULL);
+// 	ft_strlcpy(str, s1, s_len + 1);
+// 	ft_strlcat(str, s2, t_len);
+// 	return (str);
+// }
