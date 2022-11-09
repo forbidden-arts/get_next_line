@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/03 10:53:46 by dpalmer           #+#    #+#             */
-/*   Updated: 2022/11/09 13:38:24 by dpalmer          ###   ########.fr       */
+/*   Created: 2022/11/09 13:53:18 by dpalmer           #+#    #+#             */
+/*   Updated: 2022/11/09 13:57:12 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdlib.h>
 # include <unistd.h>
-// # include <stdio.h>
-// # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 8
