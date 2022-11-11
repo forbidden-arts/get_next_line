@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 11:01:28 by dpalmer           #+#    #+#             */
-/*   Updated: 2022/11/09 13:44:32 by dpalmer          ###   ########.fr       */
+/*   Updated: 2022/11/09 18:31:35 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,31 +153,3 @@ static char	*ft_prep_parse(char *str)
 	free(str);
 	return (result);
 }
-
-// int	main(void)
-// {
-// 	char	*line;
-// 	int		i;
-// 	int		fd1;
-// 	// int		fd2;
-// 	// int		fd3;
-// 	fd1 = open("tests/test1.txt", O_RDONLY);
-// 	// fd2 = open("tests/test2.txt", O_RDONLY);
-// 	// fd3 = open("tests/test3.txt", O_RDONLY);
-// 	i = 1;
-// 	while (i < 11)
-// 	{
-// 		line = get_next_line(fd1);
-// 		printf("\nline %d:\n%s", i, line);
-// 		printf("\nfirst char: %d", line[0]);
-// 		// line = get_next_line(fd2);
-// 		// printf("line %d:\n%s\n", i, line);
-// 		// line = get_next_line(fd3);
-// 		// printf("line %d:\n%s\n", i, line);
-// 		i++;
-// 	}
-// 	close(fd1);
-// 	// close(fd2);
-// 	// close(fd3);
-// 	return (0);
-// }

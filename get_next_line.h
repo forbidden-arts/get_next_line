@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 10:53:46 by dpalmer           #+#    #+#             */
-/*   Updated: 2022/11/09 13:38:24 by dpalmer          ###   ########.fr       */
+/*   Updated: 2022/11/09 18:31:22 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-// # include <stdio.h>
-// # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 8
